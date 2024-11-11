@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "baseUrl": "./", // Root directory
+    "paths": {
+      "@/*": [
+        "resources/js/*"
+      ], // Aliases to simplify import paths in your Vue components
+    }
+  },
+  "include": [
+    "resources/js/**/*.js",
+    "resources/js/**/*.vue"
+  ]
+}
