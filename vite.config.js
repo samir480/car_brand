@@ -5,10 +5,18 @@ import vue from '@vitejs/plugin-vue'; //add this line
 
 export default defineConfig({
     plugins: [
-        vue(), // write this
+        
         laravel({
             input: ['resources/js/app.js','resources/css/app.css'],
             refresh: true,
+        }),
+        vue({
+            template: {
+                transformAssetUrls: {
+                    base: null,
+                    includeAbsolute: false,
+                },
+            },
         }),
     ],
 });
