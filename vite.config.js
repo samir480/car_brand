@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue'; //add this line
+import Icons from 'unplugin-icons/vite';
 
 
 export default defineConfig({
@@ -18,5 +19,8 @@ export default defineConfig({
                 },
             },
         }),
-    ],
+        Icons({
+            autoInstall: true, // Automatically installs the icon packages when needed
+          }),
+    ]
 });
