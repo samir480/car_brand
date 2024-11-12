@@ -6,7 +6,7 @@ import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 const props = defineProps({
-  brands: Object,
+  models: Object,
   search: String,
 })
 
@@ -14,16 +14,18 @@ const search = computed(() => props.search || '');
 
 const Columns = [
   { key: 'id', label: 'ID' },
+  { key: 'brand', label: 'Brand' },
   { key: 'name', label: 'Name' },
+  { key: 'year', label: 'Year' },
   {
-    key: 'logo', label: 'Logo',
-    render: (row) => `<img src="${row.logo}" alt="Logo" style="width: 50px; height: auto;" />` // Custom render logic for image
+    key: 'image', label: 'Image',
+    render: (row) => `<img src="${row.image}" alt="Logo" style="width: 50px; height: auto;" />` // Custom render logic for image
   },
   { key: 'actions' },
 ]
 const Actions = [
-  { route: 'brand.edit', label: 'Edit', method: 'get' },
-  { route: 'brand.destroy', label: 'Delete', method: 'delete' }
+  { route: 'model.edit', label: 'Edit', method: 'get' },
+  { route: 'model.destroy', label: 'Delete', method: 'delete' }
 ]
 </script>
 
@@ -33,28 +35,28 @@ const Actions = [
     <div class="flex-1 space-y-4 p-8 pt-6">
       <div class="flex items-center justify-between space-y-2">
         <h2 class="text-3xl font-bold tracking-tight">
-          Brands
+          Brand Models
         </h2>
         <div class="flex items-center space-x-2">
-          <Link :href="route('brand.create')"><Button>Add Brand</Button></Link>
+          <Link :href="route('model.create')"><Button>Add Brand Model</Button></Link>
         </div>
       </div>
 
       <div class="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
-        v-if="!brands.data.length && search == ''">
+        v-if="!models.data.length && search == ''">
         <div class="flex flex-col items-center gap-1 text-center">
           <h3 class="text-2xl font-bold tracking-tight">
-            You have no brands
+            You have no models
           </h3>
-          <Link :href="route('brand.create')">
+          <Link :href="route('model.create')">
           <Button class="mt-4">
-            Add Brand
+            Add Brand Model
           </Button>
           </Link>
         </div>
       </div>
 
-      <DataTable :columns="Columns" :data="brands" :actions="Actions" :search="search" :only="['brands','search']" v-else />
+      <DataTable :columns="Columns" :data="models" :actions="Actions" :search="search" :only="['models','search']" v-else />
     </div>
   </Layout>
 </template>

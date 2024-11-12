@@ -14,10 +14,10 @@ const page = usePage();
 watch(
     page,
     (newValue, oldValue) => {
-        
+
         // executed immediately, then again when `source` changes
         if (page.props.flash && page.props.flash.success) {
-            
+
             toast({
                 // severity: "success",
                 title: page.props.flash.success
@@ -39,6 +39,27 @@ watch(
     { immediate: true }
 );
 
+function checkActiveRoute(item_to) {
+    const currentUrl = page.url; // Get the current URL from Inertia
+
+    // Extract the path from item.to (full URL)
+    const itemPath = new URL(item_to, window.location.origin).pathname;
+
+    // Handle the case where currentUrl is the root ('/')
+    if (currentUrl === '/' && itemPath === '/') {
+        return true; // Both are root paths, return true
+    }
+    console.log(itemPath,currentUrl);
+    
+    // Handle the case where currentUrl is not root, match exact paths
+    if (currentUrl.includes(itemPath) && itemPath!='/') {
+        return true; // Exact match between the current route and the item route
+    }
+
+    // If none of the above cases match, return false
+    return false;
+}
+
 </script>
 
 <template>
@@ -48,20 +69,28 @@ watch(
                 <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                     <Link :href="route('dashboard')" class="flex items-center gap-2 font-semibold">
                     <Package2 class="h-6 w-6" />
-                    <span class="">Acme Inc</span>
+                    <span class="">Car Brands</span>
                     </Link>
                 </div>
                 <div class="flex-1">
                     <nav class="grid items-start px-2 text-sm font-medium lg:px-4">
                         <Link :href="route('dashboard')"
-                            class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                            class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                            :class="{ 'bg-muted text-primary': checkActiveRoute(route('dashboard')) }">
                         <Home class="h-4 w-4" />
                         Dashboard
                         </Link>
                         <Link :href="route('brand.index')"
-                            class="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary">
+                            class="flex items-center gap-3 rounded-lg  px-3 py-2 transition-all hover:text-primary"
+                            :class="{ 'bg-muted text-primary': checkActiveRoute(route('brand.index')) }">
                         <Package class="h-4 w-4" />
                         Brands
+                        </Link>
+                        <Link :href="route('model.index')"
+                            class="flex items-center gap-3 rounded-lg  px-3 py-2 transition-all hover:text-primary"
+                            :class="{ 'bg-muted text-primary': checkActiveRoute(route('model.index')) }">
+                        <Package class="h-4 w-4" />
+                        Models
                         </Link>
                     </nav>
                 </div>
@@ -81,17 +110,26 @@ watch(
                         <nav class="grid gap-2 text-lg font-medium">
                             <Link :href="route('dashboard')" class="flex items-center gap-2 text-lg font-semibold">
                             <Package2 class="h-6 w-6" />
-                            <span class="sr-only">Acme Inc</span>
+                            <span class="sr-only">Car Brands</span>
                             </Link>
                             <Link :href="route('dashboard')"
-                                class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground">
+                                class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                                :class="{ 'bg-muted text-primary': checkActiveRoute(route('model.index')) }">
                             <Home class="h-5 w-5" />
                             Dashboard
                             </Link>
-                            <Link :href="route('dashboard')"
-                                class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground">
+                            <Link :href="route('brand.index')"
+                                class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                                :class="{ 'bg-muted text-primary': checkActiveRoute(route('model.index')) }">
                             <Package class="h-5 w-5" />
-                            Products
+                            Brands
+                            </Link>
+                            <Link :href="route('model.index')"
+                                class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                                :class="{ 'bg-muted text-primary': checkActiveRoute(route('model.index')) }">
+
+                            <Package class="h-5 w-5" />
+                            Brand Models
                             </Link>
 
                         </nav>

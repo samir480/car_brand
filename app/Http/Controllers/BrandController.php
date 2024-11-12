@@ -94,9 +94,8 @@ class BrandController extends Controller
             if ($request->hasFile('logo')) {
 
                 //remove old image
-                $exist_brand = Brand::find($brand->id);
-                if (Storage::disk('public')->exists($exist_brand->logo)) {
-                    Storage::disk('public')->delete($exist_brand->logo);
+                if (Storage::disk('public')->exists($brand->logo)) {
+                    Storage::disk('public')->delete($brand->logo);
                 }
 
                 $logoPath = null;

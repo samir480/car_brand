@@ -1,6 +1,21 @@
 <script setup>
-import Button from '@/components/ui/button/Button.vue';
 import Layout from '@/Layout/Layout.vue';
+import { defineProps } from 'vue';
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Package } from 'lucide-vue-next'
+
+defineProps({
+  brands_count: Number,
+  models_count: Number,
+})
+
 </script>
 
 <template>
@@ -10,18 +25,33 @@ import Layout from '@/Layout/Layout.vue';
         Dashboard
       </h1>
     </div>
-    <div class="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
-      <div class="flex flex-col items-center gap-1 text-center">
-        <h3 class="text-2xl font-bold tracking-tight">
-          You have no products
-        </h3>
-        <p class="text-sm text-muted-foreground">
-          You can start selling as soon as you add a product.
-        </p>
-        <Button class="mt-4">
-          Add Product
-        </Button>
-      </div>
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <Card>
+        <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardTitle class="text-sm font-medium">
+            Total Brands
+          </CardTitle>
+          <Package class="h-4 w-4" />
+        </CardHeader>
+        <CardContent>
+          <div class="text-2xl font-bold">
+            {{ brands_count }}
+          </div>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardTitle class="text-sm font-medium">
+            Total Brand Models
+          </CardTitle>
+          <Package class="h-4 w-4" />
+        </CardHeader>
+        <CardContent>
+          <div class="text-2xl font-bold">
+            {{ models_count }}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   </Layout>
 </template>

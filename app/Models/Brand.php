@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Brand extends Model
 {
@@ -10,6 +11,11 @@ class Brand extends Model
         'name',
         'logo',
     ];
+
+    public function models(): HasMany
+    {
+        return $this->hasMany(BrandModel::class);
+    }
 
     public function scopeSearch($query, $request)
     {
