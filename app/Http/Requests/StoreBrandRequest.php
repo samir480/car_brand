@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class StoreBrandRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreBrandRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,11 @@ class StoreBrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|unique:brands|max:255',
+            'logo' => 'required',
+            File::image()
+                ->min('1kb')
+                ->max('10mb'),
         ];
     }
 }

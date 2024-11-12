@@ -10,4 +10,12 @@ class Brand extends Model
         'name',
         'logo',
     ];
+
+    public function scopeSearch($query, $request)
+    {
+        if (isset($request->search)) {
+            $value = "%" . $request->search . "%";
+            $query->where('name', 'like', $value);
+        }
+    }
 }

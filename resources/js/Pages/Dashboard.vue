@@ -7,7 +7,7 @@ import Layout from '@/Layout/Layout.vue';
   <Layout>
     <div class="flex items-center">
       <h1 class="text-lg font-semibold md:text-2xl">
-        Inventory
+        Dashboard
       </h1>
     </div>
     <div class="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">

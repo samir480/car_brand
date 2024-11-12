@@ -1,9 +1,44 @@
 <script setup>
-
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { CircleUser, Home, Menu, Package, Package2 } from 'lucide-vue-next'
+import { Link, usePage } from '@inertiajs/vue3';
+import { useToast } from '@/components/ui/toast/use-toast'
+import { watch } from "vue";
+import Toaster from '@/components/ui/toast/Toaster.vue';
+const { toast } = useToast()
+
+const page = usePage();
+
+watch(
+    page,
+    (newValue, oldValue) => {
+        
+        // executed immediately, then again when `source` changes
+        if (page.props.flash && page.props.flash.success) {
+            
+            toast({
+                // severity: "success",
+                title: page.props.flash.success
+            });
+        } else if (page.props.flash && page.props.flash.error) {
+            toast({
+                // severity: "error",
+                title: page.props.flash.error
+            });
+        }
+
+        if (page.props.flash && page.props.flash.info) {
+            toast({
+                // severity: "info",
+                title: page.props.flash.info,
+            });
+        }
+    },
+    { immediate: true }
+);
+
 </script>
 
 <template>
@@ -11,23 +46,23 @@ import { CircleUser, Home, Menu, Package, Package2 } from 'lucide-vue-next'
         <div class="hidden border-r bg-muted/40 md:block">
             <div class="flex h-full max-h-screen flex-col gap-2">
                 <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-                    <a href="/" class="flex items-center gap-2 font-semibold">
-                        <Package2 class="h-6 w-6" />
-                        <span class="">Acme Inc</span>
-                    </a>
+                    <Link :href="route('dashboard')" class="flex items-center gap-2 font-semibold">
+                    <Package2 class="h-6 w-6" />
+                    <span class="">Acme Inc</span>
+                    </Link>
                 </div>
                 <div class="flex-1">
                     <nav class="grid items-start px-2 text-sm font-medium lg:px-4">
-                        <a href="/"
+                        <Link :href="route('dashboard')"
                             class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
-                            <Home class="h-4 w-4" />
-                            Dashboard
-                        </a>
-                        <a href="#"
+                        <Home class="h-4 w-4" />
+                        Dashboard
+                        </Link>
+                        <Link :href="route('brand.index')"
                             class="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary">
-                            <Package class="h-4 w-4" />
-                            Products
-                        </a>
+                        <Package class="h-4 w-4" />
+                        Brands
+                        </Link>
                     </nav>
                 </div>
 
@@ -44,20 +79,20 @@ import { CircleUser, Home, Menu, Package, Package2 } from 'lucide-vue-next'
                     </SheetTrigger>
                     <SheetContent side="left" class="flex flex-col">
                         <nav class="grid gap-2 text-lg font-medium">
-                            <a href="#" class="flex items-center gap-2 text-lg font-semibold">
-                                <Package2 class="h-6 w-6" />
-                                <span class="sr-only">Acme Inc</span>
-                            </a>
-                            <a href="#"
+                            <Link :href="route('dashboard')" class="flex items-center gap-2 text-lg font-semibold">
+                            <Package2 class="h-6 w-6" />
+                            <span class="sr-only">Acme Inc</span>
+                            </Link>
+                            <Link :href="route('dashboard')"
                                 class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground">
-                                <Home class="h-5 w-5" />
-                                Dashboard
-                            </a>
-                            <a href="#"
+                            <Home class="h-5 w-5" />
+                            Dashboard
+                            </Link>
+                            <Link :href="route('dashboard')"
                                 class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground">
-                                <Package class="h-5 w-5" />
-                                Products
-                            </a>
+                            <Package class="h-5 w-5" />
+                            Products
+                            </Link>
 
                         </nav>
 
@@ -87,4 +122,5 @@ import { CircleUser, Home, Menu, Package, Package2 } from 'lucide-vue-next'
             </main>
         </div>
     </div>
+    <Toaster />
 </template>
