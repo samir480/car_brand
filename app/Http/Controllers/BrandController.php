@@ -67,6 +67,7 @@ class BrandController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            return to_route('brand.index')->with('error', 'Something went wrong');
         }
     }
 
@@ -111,6 +112,7 @@ class BrandController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            return to_route('brand.index')->with('error', 'Something went wrong');
         }
     }
 
@@ -119,6 +121,12 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
+        // check this brand has models
+        if ($brand && $brand->models()->count() > 0) {
+            return to_route('brand.index')
+                ->with('error', 'This brand has associated brand models and cannot be deleted.');
+        }
+
         DB::beginTransaction();
         try {
             if (Storage::disk('public')->exists($brand->logo)) {
@@ -130,6 +138,7 @@ class BrandController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            return to_route('brand.index')->with('error', 'Something went wrong');
         }
     }
 }

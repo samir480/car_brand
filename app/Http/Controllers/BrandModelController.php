@@ -76,6 +76,7 @@ class BrandModelController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            return to_route('model.index')->with('error', 'Something went wrong');
         }
     }
 
@@ -131,6 +132,7 @@ class BrandModelController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            return to_route('model.index')->with('error', 'Something went wrong');
         }
     }
 
@@ -150,6 +152,7 @@ class BrandModelController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
+            return to_route('model.index')->with('error', 'Something went wrong');
         }
     }
 }
