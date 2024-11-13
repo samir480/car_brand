@@ -129,7 +129,7 @@ class BrandController extends Controller
 
         DB::beginTransaction();
         try {
-            if (Storage::disk('public')->exists($brand->logo)) {
+            if ($brand->logo && Storage::disk('public')->exists($brand->logo)) {
                 Storage::disk('public')->delete($brand->logo);
             }
             $brand->delete();

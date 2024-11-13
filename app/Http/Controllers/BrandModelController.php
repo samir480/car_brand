@@ -113,7 +113,7 @@ class BrandModelController extends Controller
             if ($request->hasFile('image')) {
 
                 //remove old image
-                if (Storage::disk('public')->exists($brandModel->image)) {
+                if ($brandModel->image && Storage::disk('public')->exists($brandModel->image)) {
                     Storage::disk('public')->delete($brandModel->image);
                 }
 
