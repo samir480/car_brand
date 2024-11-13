@@ -141,4 +141,25 @@ class BrandController extends Controller
             return to_route('brand.index')->with('error', 'Something went wrong');
         }
     }
+
+    function brand_list(Request $request)
+    {
+        $brands = Brand::search($request)->get()->map(fn($data) => [
+            'id' => $data->id,
+            'name' => $data->name,
+            'logo' => asset('storage/' . $data->logo),
+        ]);
+
+        $brandCount = $brands->count();
+
+        return Inertia::render(
+            'Brand/List',
+            [
+                'brands' => $brands,
+                'brandCount' => $brandCount,
+                'search' => $request->search,
+                'active_letter' => $request->active_letter,
+            ]
+        );
+    }
 }

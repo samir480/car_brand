@@ -15,3 +15,5 @@ Route::resource('model', BrandModelController::class)->except([
 ])->parameters([
     'model' => 'brand_model'
 ]);
+Route::get('/brand-list', [BrandController::class, 'brand_list'])->name('brand.list');
+
