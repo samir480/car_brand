@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\File;
 
 class StoreBrandModelRequest extends FormRequest
 {
@@ -22,15 +21,17 @@ class StoreBrandModelRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|max:255|unique:brand_models,name,NULL,id,brand_id,'.$this->brand_id,
-            'brand_id' => 'required|numeric',
-            'year' => 'required|numeric',
-            'image' => 'required',
-            File::image()
-                ->min('1kb')
-                ->max('10mb'),
+            'brand_id' => 'required|numeric|exists:brands,id',
+            'year' => 'required|numeric'
         ];
+
+        if (!$this->expectsJson()) { // for web
+            $rules['image'] = 'required|file|image|mimes:jpeg,png,jpg,gif,svg|max:10240'; // Max 10 MB, example formats
+        }
+
+        return $rules;
     }
 
         /**

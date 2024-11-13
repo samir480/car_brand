@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Brand::class)->constrained();
             $table->string('name');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->integer('year');
             $table->timestamps();
         });

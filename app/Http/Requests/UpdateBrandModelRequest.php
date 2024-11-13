@@ -24,7 +24,7 @@ class UpdateBrandModelRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255|unique:brand_models,name,' . $this->route('brand_model')->id . 'id,brand_id,' . $this->route('brand_model')->brand_id,
-            'brand_id' => 'required|numeric',
+            'brand_id' => 'required|numeric|exists:brands,id',
             'year' => 'required|numeric',
             'image' => 'nullable',
             File::image()->min('1kb')->max('10mb'),

@@ -14,4 +14,4 @@ Route::resource('model', BrandModelController::class)->except([
     'show'
 ])->parameters([
     'model' => 'brand_model'
-]);;
+]);
