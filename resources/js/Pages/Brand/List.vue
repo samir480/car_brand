@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue';
 import { Button } from '@/components/ui/button'
 import Input from '@/components/ui/input/Input.vue';
-import { router } from '@inertiajs/vue3';
+import { router,Link } from '@inertiajs/vue3';
 
 const props = defineProps({
   brands: Object,
@@ -36,6 +36,9 @@ watch([search, activeLetter], ([newSearch, newPerPage], [oldSearch, oldPerPage])
         <p class="text-sm text-muted-foreground">
           (Showing {{ brandCount }} results)
         </p>
+        <Link :href="route('dashboard')">
+        <Button>Back</Button>
+        </Link>
       </div>
       <div class="mt-6 space-y-1">
         <Input class="max-w-sm" placeholder="Search..." v-model="search" />

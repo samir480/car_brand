@@ -30,7 +30,7 @@ const Actions = [
 <template>
   <Layout>
 
-    <div class="flex-1 space-y-4 p-8 pt-6">
+    <div class="space-y-4 p-8 pt-6">
       <div class="flex items-center justify-between space-y-2">
         <h2 class="text-3xl font-bold tracking-tight">
           Brands
@@ -39,22 +39,23 @@ const Actions = [
           <Link :href="route('brand.create')"><Button>Add Brand</Button></Link>
         </div>
       </div>
-
-      <div class="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
-        v-if="!brands.data.length && search == ''">
-        <div class="flex flex-col items-center gap-1 text-center">
-          <h3 class="text-2xl font-bold tracking-tight">
-            You have no brands
-          </h3>
-          <Link :href="route('brand.create')">
-          <Button class="mt-4">
-            Add Brand
-          </Button>
-          </Link>
-        </div>
-      </div>
-
-      <DataTable :columns="Columns" :data="brands" :actions="Actions" :search="search" :only="['brands','search']" v-else />
     </div>
+
+    <div class="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
+      v-if="!brands.data.length && search == ''">
+      <div class="flex flex-col items-center gap-1 text-center">
+        <h3 class="text-2xl font-bold tracking-tight">
+          You have no brands
+        </h3>
+        <Link :href="route('brand.create')">
+        <Button class="mt-4">
+          Add Brand
+        </Button>
+        </Link>
+      </div>
+    </div>
+
+    <DataTable :columns="Columns" :data="brands" :actions="Actions" :search="search" :only="['brands', 'search']"
+      v-else />
   </Layout>
 </template>
