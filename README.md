@@ -31,7 +31,12 @@ To run this project, ensure your server meets the following requirements:
 4. Generate an application key
    ```bash
    php artisan key:generate
-5. Configure your database:
+
+5. Link Storage
+   ```bash
+   php artisan storage:link
+   
+6. Configure your database:
    ```bash
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
@@ -40,7 +45,7 @@ To run this project, ensure your server meets the following requirements:
     DB_USERNAME=your_database_username
     DB_PASSWORD=your_database_password
 
-8. Run the development server with vite:
+7. Run the development server with vite:
    ```bash
    composer run dev
 
